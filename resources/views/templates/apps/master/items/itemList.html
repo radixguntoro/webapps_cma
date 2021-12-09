@@ -1,0 +1,104 @@
+<div class="vs-page-item">
+    <div class="vs-page-body">
+        <div class="grid-x">
+            <div class="large-12 cell align-self-middle">
+                <div class="vs-box-page-content z-depth-low">
+                    <div class="vs-box-page-header">
+                        <div class="grid-x">
+                            <div class="small-12 cell align-self-middle">
+                                <div class="vs-page-title middle-left">
+                                    <img src="public/apps/img/icon/list.png" class="mdi-right">
+                                    <span class="vs-page-title font-bold">Item List</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="grid-x">
+                        <div class="large-12 cell">
+                            <div class="vs-box-page-body">
+                                <div class="vs-loading" ng-show="loading">
+                                    <div class="showbox">
+                                        <div class="loader">
+                                            <svg class="circular" viewBox="25 25 50 50">
+                                                <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="3" stroke-miterlimit="10"/>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="grid-x grid-padding-x">
+                                    <div class="small-12 cell">
+                                        <div class="grid-x grid-padding-x">
+                                            <div class="small-2 cell">
+                                                <button ui-sref="item-create" class="button vs-flat-button btn-secondary btn-small middle-center float-right margin-bottom-0 expanded">Add Item</button>
+                                            </div>
+                                            <div class="small-10 cell">
+                                                <input type="text" placeholder="Search item by name and code..." class="margin-bottom-12px" ng-change="searchData()" ng-model="searchText" id="inp-search">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="small-12 cell">
+                                        <table class="vs-table show-for-large margin-bottom-0">
+                                            <thead>
+                                                <tr>
+                                                    <th width="64" class="text-center">No.</th>
+                                                    <th class="text-center" width="150">Code</th>
+                                                    <th class="text-center">Item Name</th>
+                                                    <th class="text-center" width="150">Category</th>
+                                                    <th class="text-center" width="125">Quantity</th>
+                                                    <th class="text-center" width="150">Buying Price</th>
+                                                    <th class="text-center" width="150">Selling Price</th>
+                                                    <th class="text-center" width="100">Status</th>
+                                                    <th width="25" colspan="1">&nbsp;</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr dir-paginate="item in data | itemsPerPage:25" total-items="totalItems" current-page="pagination.current">
+                                                    <td>{{ ($index + 1) + (pagination.current - 1) * 25}}.</td>
+                                                    <td>{{ item.code }}</td>
+                                                    <td class="pos-relative">
+                                                        <div class="text-uppercase font-bold">{{ item.name }}</div>
+                                                        <div class="pos-absolute pos-right icon-table" ng-if="item.starter_kids == 'A'"><i class="mdi mdi-star-circle"></i></div>
+                                                    </td>
+                                                    <td>
+                                                        {{ item.category_name }}
+                                                    </td>
+                                                    <td class="text-right">{{ item.qty | currency:'':0 }}</td>
+                                                    <td class="text-right">
+                                                        {{ item.price_buy | currency:'':0 }}
+                                                    </td>
+                                                    <td class="text-right">
+                                                        {{ item.price_sell | currency:'':0 }}
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <label class="label success text-white" ng-if="item.status == 'A'">Active</label>
+                                                        <label class="label alert text-white" ng-if="item.status == 'N'">Inactive</label>
+                                                    </td>
+                                                    <td class="text-center" width="25">
+                                                        <button ui-sref="item-edit({id: item.id})" class="button vs-flat-button primary btn-small btn-square margin-bottom-0 btn-edit btn-icon" ng-keypress="pressEdit(this, $event, item.id)" ng-disabled="user_id == 2 || user_id == 3"><i class="mdi mdi-pencil mdi-14px"></i></button>
+                                                    </td>
+                                                </tr>
+                                                <tr ng-show="data.length < 1">
+                                                    <td class="text-center" colspan="9">Data is not available</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="vs-box-page-footer">
+                        <div class="grid-x" ng-hide="loading">
+                            <div class="small-6 cell align-self-middle">
+                                <span>Total: {{ totalItems }}</span>
+                            </div>
+                            <div class="small-6 cell align-self-middle">
+                                <dir-pagination-controls class="pull-right" on-page-change="pageChanged(newPageNumber)" template-url="../resources/views/templates/apps/master/items/itemPagination.html"></dir-pagination-controls>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

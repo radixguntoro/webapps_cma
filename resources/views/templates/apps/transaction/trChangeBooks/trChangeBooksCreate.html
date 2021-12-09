@@ -1,0 +1,179 @@
+<div class="vs-page-transaction" style="position:relative">
+    <div class="vs-page-body">
+        <!-- <form name="transactionSalesForm" ng-submit="createData(transactionSalesForm.$valid)" id="transactionSalesForm"> -->
+            <div class="grid-x">
+                <div class="large-12 cell align-self-middle">
+                    <div class="vs-box-page-content z-depth-low">
+                        <div class="vs-box-page-header">
+                            <div class="grid-x">
+                                <div class="small-12 medium-6 large-3 cell align-self-middle">
+                                    <div class="vs-page-title middle-left">
+                                        <img src="public/apps/img/icon/cashier.png" class="mdi-right">
+                                        <span class="vs-page-title font-bold">Change Books</span>
+                                    </div>
+                                </div>
+                                <div class="small-12 medium-6 large-9 cell align-self-right text-right">
+                                    {{ todayDate | date : "dd MMM y" }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="grid-x">
+                            <div class="large-3 cell padding-left-0">
+                                <div class="box-header middle-left" style="background: #e88c3b; color: white; padding: 6px 16px; height: 8%">
+                                    <label for="" class="font-bold text-white">Student Information</label>
+                                </div>
+                                <div class="box-payment text-center" style="background: #eb9952; color: white; height: 92%">
+                                    <img src="public/apps/img/icon/student.png" class="margin-top-1 margin-bottom-1" width="150">
+                                    <h5 ng-show="student.name !== ''" class="text-white margin-bottom-8px text-uppercase font-medium">{{ student.name }}</h5>
+                                    <h5 ng-show="student.name == ''" class="text-white margin-bottom-8px text-uppercase font-medium">Student Name</h5>
+                                    <div ng-show="student.code !== ''" class="grid-x grid-padding-x">
+                                        <div class="large-6 cell">
+                                            <div class="middle-center">
+                                                <i class="mdi mdi-account-card-details mdi-18px mdi-right"></i>
+                                                <span style="font-size: 16px">{{ student.code }}</span>
+                                            </div>
+                                        </div>
+                                        <div class="large-6 cell">
+                                            <div class="middle-center">
+                                                <span style="font-size: 16px">Rp. {{ student.deposit | currency:'':0 }}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div ng-show="student.code == ''" class="grid-x grid-padding-x">
+                                        <div class="large-6 cell">
+                                            <div class="middle-center">
+                                                <i class="mdi mdi-account-card-details mdi-18px mdi-right"></i>
+                                                <span style="font-size: 16px">ID01XXXX0</span>
+                                            </div>
+                                        </div>
+                                        <div class="large-6 cell">
+                                            <div class="middle-center">
+                                                <span style="font-size: 16px">Rp. 5XX.XXX</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div ng-show="student.code !== ''" class="">
+                                        <div class="middle-center">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="large-9 cell padding-right-0">
+                                <div class="vs-box-page-body">
+                                    <div class="vs-loading" ng-show="loading">
+                                        <div class="showbox">
+                                            <div class="loader">
+                                                <svg class="circular" viewBox="25 25 50 50">
+                                                    <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="3" stroke-miterlimit="10"/>
+                                                </svg>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="grid-x grid-padding-x">
+                                        <div class="small-9 cell">
+                                            <autocompstudent placeholder="Search student by name or code..." selection="selection" source="searchStudent" class="margin-bottom-0">
+                                        </div>
+                                        <div class="small-3 cell">
+                                            <div class="input-group">
+                                                <span class="input-group-label"><i class="mdi mdi-calendar"></i></span>
+                                                <input type="text" ui-date="dateOptions" name="dateJoin" ng-model="tr_changebooks.date" placeholder="01-01-2019" autocomplete="off" id="inp-joindate" class="margin-bottom-0">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="grid-x grid-padding-x">
+                                        <div class="small-12 cell">
+                                            <hr class="margin-bottom-12px margin-top-12px">
+                                        </div>
+                                        <div class="small-2 cell">
+                                            <label for="" class="font-bold">New Book</label>
+                                        </div>
+                                        <div class="small-10 cell">
+                                            <autocompbook placeholder="Search book by name..." selection="selection" source="searchItem" class="margin-bottom-12px">
+                                        </div>
+                                        <div class="small-12 cell">
+                                            <table class="vs-table show-for-large">
+                                                <thead>
+                                                    <tr>
+                                                        <th width="48">&nbsp;</th>
+                                                        <th class="text-center">Book Name</th>
+                                                        <th width="150" class="text-center">Price</th>
+                                                        <th width="150" class="text-center">Deposit Before</th>
+                                                        <th width="150" class="text-center">Deposit After</th>
+                                                        <th width="50" class="text-center"></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="data-cart-sales">
+                                                    <tr ng-repeat="item in cart_item">
+                                                        <td>{{ ($index + 1) }}.</td>
+                                                        <td>
+                                                            <div class="font-bold">
+                                                                <div class="text-uppercase">{{ item.name }}</div>
+                                                                <input type="hidden" ng-model="item.id">
+                                                                <input type="hidden" ng-model="item.name">
+                                                            </div>
+                                                        </td>
+                                                        <td class="text-right">
+                                                            <input type="text" class="text-right margin-bottom-0 inp-transparent" id="item-price-{{ $index }}" disabled ng-model="item.price" ui-number-mask="0">
+                                                        </td>
+                                                        <td class="text-right">
+                                                            <input type="text" class="text-right margin-bottom-0 inp-transparent" disabled ng-model="item.deposit_before" ui-number-mask="0" ui-negative-number>
+                                                        </td>
+                                                        <td class="text-right">
+                                                            <input type="text" class="text-right margin-bottom-0 inp-transparent" disabled ng-model="item.deposit_after" ui-number-mask="0" ui-negative-number>
+                                                        </td>
+                                                        <td class="text-center box-delete">
+                                                            <button class="button vs-flat-button alert btn-small btn-square margin-bottom-0 btn-delete btn-icon" ng-click="cartRemoveItem(this)" id="modal-confirm-delete-tr-sales"><i class="mdi mdi-delete mdi-14px"></i></button>
+                                                        </td>
+                                                    </tr>
+                                                    <tr ng-show="cart_item.length < 1">
+                                                        <td class="text-center" colspan="6">Book cart is empty.</td>
+                                                    </tr>
+                                                </tbody>
+                                                <tfooter>
+                                                    <tr>
+                                                        <td class="text-right font-bold" colspan="4">Subtotal :</td>
+                                                        <td class="text-right" colspan="4">
+                                                            <div ng-model="tr_changebooks.subtotal">{{ tr_changebooks.subtotal | currency:'':0 }}</div>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="text-right font-bold" colspan="4">Balance Deposit Now :</td>
+                                                        <td class="text-right" colspan="4">
+                                                            <div ng-model="tr_changebooks.deposit_before">{{ tr_changebooks.deposit_before | currency:'':0 }}</div>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="text-right font-bold" colspan="4">Balance Deposit After :</td>
+                                                        <td class="text-right font-bold" colspan="4">
+                                                            <div ng-model="tr_changebooks.deposit_after">{{ tr_changebooks.deposit_after | currency:'':0 }}</div>
+                                                        </td>
+                                                    </tr>
+                                                </tfooter>
+                                            </table>
+                                        </div>
+                                        <div class="small-12 cell">
+                                            <hr class="margin-top-0 margin-bottom-12px">
+                                        </div>
+                                    </div>
+                                    <div class="grid-x grid-padding-x">
+                                        <div class="small-2 cell">
+                                            <label for="" class="font-bold">Note</label>
+                                        </div>
+                                        <div class="small-10 cell">
+                                            <textarea name="name" rows="3" ng-model="tr_changebooks.note"></textarea>
+                                        </div>
+                                        <div class="small-12 cell text-right">
+                                            <hr class="margin-bottom-12px" style="margin-top: 4px">
+                                            <button class="button vs-flat-button btn-primary margin-bottom-0" id="btn-list" style="margin-right: 8px" ng-click="listData()">List Change Book</button>
+                                            <button class="button vs-flat-button btn-success margin-bottom-0" id="btn-save" ng-disabled="cart_item.length < 1 || student.name == ''" ng-click="createData()">Simpan</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <!-- </form> -->
+    </div>
+</div>

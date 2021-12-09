@@ -1,0 +1,275 @@
+<div class="vs-page-item">
+    <div class="vs-page-body">
+        <div class="grid-x">
+            <div class="large-12 cell margin-bottom-1">
+                <div class="vs-box-page-content z-depth-low">
+                    <div class="vs-box-page-header" style="border: 0">
+                        <div class="grid-x">
+                            <div class="small-12 cell align-self-middle">
+                                <div class="vs-page-title middle-left">
+                                    <img src="public/apps/img/icon/speedometer.png" class="mdi-right">
+                                    <span class="vs-page-title font-bold">Dashboard</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="large-4 cell text-center">
+                <div class="vs-box-page-content z-depth-low padding-1 vs-bg-secondary">
+                    <div class="grid-x">
+                        <div class="large-12 cell">
+                            <h5 class="text-white font-medium margin-bottom-1 margin-top-1">Students</h5>
+                        </div>
+                        <div class="large-6 cell">
+                            <table class="table-no-border margin-bottom-0">
+                                <tbody>
+                                    <tr>
+                                        <td class="text-left" style="background: #ffa31a" colspan="2">
+                                            <div class="middle-left">
+                                                <i class="mdi mdi-check-circle-outline mdi-18px"></i>&nbsp;Active
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-left" style="background: #ffad33" width="80">Qty</td>
+                                        <td class="text-right font-medium" style="background: #ffb13d">{{ count_student_active | currency:'':0 }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-left" style="background: #ffad33" width="80">Deposit</td>
+                                        <td class="text-right font-medium" style="background: #ffb13d">{{ deposit_student_active | currency:'':0 }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="large-6 cell">
+                            <table class="table-no-border margin-bottom-0">
+                                <tbody>
+                                    <tr>
+                                        <td class="text-left" style="background: #ffa31a" colspan="2">
+                                            <div class="middle-left">
+                                                <i class="mdi mdi-close-circle-outline mdi-18px"></i>&nbsp;Non Active
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-left" style="background: #ffad33" width="80">Qty</td>
+                                        <td class="text-right font-medium" style="background: #ffb13d">{{ count_student_nonactive | currency:'':0 }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-left" style="background: #ffad33" width="80">Deposit</td>
+                                        <td class="text-right font-medium" style="background: #ffb13d">{{ deposit_student_nonactive | currency:'':0 }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="large-4 cell text-center padding-right-1 padding-left-1">
+                <div class="vs-box-page-content z-depth-low padding-1 vs-bg-third">
+                    <div class="grid-x">
+                        <div class="large-12 cell">
+                            <h5 class="text-white font-medium margin-bottom-1 margin-top-1">Rewards</h5>
+                        </div>
+                        <div class="large-6 cell">
+                            <table class="table-no-border margin-bottom-0">
+                                <tbody>
+                                    <tr>
+                                        <td class="text-left" style="background: #3bcbde" colspan="2">
+                                            <div class="middle-left">
+                                                <i class="mdi mdi-check-circle-outline mdi-18px"></i>&nbsp;Active
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-left" style="background: #51d1e1" width="100">Qty</td>
+                                        <td class="text-right font-medium" style="background: #59d3e3">{{ count_reward_active | currency:'':0 }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-left" style="background: #51d1e1" width="100">Buying Price</td>
+                                        <td class="text-right font-medium" style="background: #59d3e3">{{ price_reward_active | currency:'':0 }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="large-6 cell">
+                            <table class="table-no-border margin-bottom-0">
+                                <tbody>
+                                    <tr>
+                                        <td class="text-left" style="background: #3bcbde" colspan="2">
+                                            <div class="middle-left">
+                                                <i class="mdi mdi-close-circle-outline mdi-18px"></i>&nbsp;Non Active
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-left" style="background: #51d1e1" width="100">Qty</td>
+                                        <td class="text-right font-medium" style="background: #59d3e3">{{ count_reward_nonactive | currency:'':0 }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-left" style="background: #51d1e1" width="100">Buying Price</td>
+                                        <td class="text-right font-medium" style="background: #59d3e3">{{ price_reward_nonactive | currency:'':0 }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="large-4 cell text-center">
+                <div class="vs-box-page-content z-depth-low padding-1 vs-bg-primary">
+                    <div class="grid-x">
+                        <div class="large-12 cell">
+                            <h5 class="text-white font-medium margin-bottom-1 margin-top-1">Vouchers</h5>
+                        </div>
+                        <div class="large-6 cell">
+                            <table class="table-no-border margin-bottom-0">
+                                <tbody>
+                                    <tr>
+                                        <td class="text-left" style="background: #2048a7" colspan="2">
+                                            <div class="middle-left">
+                                                <i class="mdi mdi-check-circle-outline mdi-18px"></i>&nbsp;Active
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-left" style="background: #2655c5" width="90">Qty</td>
+                                        <td class="text-right font-medium" style="background: #2759ce">{{ count_voucher_active | currency:'':0 }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-left" style="background: #2655c5" width="90">Total Value</td>
+                                        <td class="text-right font-medium" style="background: #2759ce">{{ value_voucher_active | currency:'':0 }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="large-6 cell">
+                            <table class="table-no-border margin-bottom-0">
+                                <tbody>
+                                    <tr>
+                                        <td class="text-left" style="background: #2048a7" colspan="2">
+                                            <div class="middle-left">
+                                                <i class="mdi mdi-close-circle-outline mdi-18px"></i>&nbsp;Non Active
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-left" style="background: #2655c5" width="90">Qty</td>
+                                        <td class="text-right font-medium" style="background: #2759ce">{{ count_voucher_nonactive | currency:'':0 }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-left" style="background: #2655c5" width="90">Total Value</td>
+                                        <td class="text-right font-medium" style="background: #2759ce">{{ value_voucher_nonactive | currency:'':0 }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="large-6 cell margin-top-1 padding-right-1">
+                <div class="vs-box-page-content padding-1 vs-bg-success z-depth-low">
+                    <div class="grid-x">
+                        <div class="large-12 cell text-center">
+                            <h5 class="text-white font-medium margin-bottom-1 margin-top-1">Inventory</h5>
+                            <table class="table-no-border margin-bottom-1">
+                                <tbody>
+                                    <tr>
+                                        <td class="text-left" style="background: #5cb75f">
+                                            <div class="middle-left">
+                                                <i class="mdi mdi-check-circle-outline mdi-18px"></i>&nbsp;Active
+                                            </div>
+                                        </td>
+                                        <td class="text-center" style="background: #75c277">
+                                            Qty
+                                        </td>
+                                        <td class="text-center" style="background: #75c277">
+                                            Buying Price
+                                        </td>
+                                        <td class="text-center" style="background: #75c277">
+                                            Selling Price
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-left" style="background: #75c277" width="125">Books</td>
+                                        <td class="text-right font-medium" style="background: #7cc57e">{{ inventory_book_qty_active | currency:'':0 }}</td>
+                                        <td class="text-right font-medium" style="background: #7cc57e">{{ inventory_book_buying_active | currency:'':0 }}</td>
+                                        <td class="text-right font-medium" style="background: #7cc57e">{{ inventory_book_selling_active | currency:'':0 }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-left" style="background: #75c277" width="125">Accessory</td>
+                                        <td class="text-right font-medium" style="background: #7cc57e">{{ inventory_accessory_qty_active | currency:'':0 }}</td>
+                                        <td class="text-right font-medium" style="background: #7cc57e">{{ inventory_accessory_buying_active | currency:'':0 }}</td>
+                                        <td class="text-right font-medium" style="background: #7cc57e">{{ inventory_accessory_selling_active | currency:'':0 }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-left" style="background: #5cb75f" width="125">Total</td>
+                                        <td class="text-right font-medium" style="background: #75c277">{{ inventory_book_qty_active + inventory_accessory_qty_active | currency:'':0 }}</td>
+                                        <td class="text-right font-medium" style="background: #75c277">{{ inventory_book_buying_active + inventory_accessory_buying_active | currency:'':0 }}</td>
+                                        <td class="text-right font-medium" style="background: #75c277">{{ inventory_book_selling_active + inventory_accessory_selling_active | currency:'':0 }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <table class="table-no-border margin-bottom-0">
+                                <tbody>
+                                    <tr>
+                                        <td class="text-left" style="background: #5cb75f">
+                                            <div class="middle-left">
+                                                <i class="mdi mdi-close-circle-outline mdi-18px"></i>&nbsp;Non Active
+                                            </div>
+                                        </td>
+                                        <td class="text-center" style="background: #75c277">
+                                            Qty
+                                        </td>
+                                        <td class="text-center" style="background: #75c277">
+                                            Buying Price
+                                        </td>
+                                        <td class="text-center" style="background: #75c277">
+                                            Selling Price
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-left" style="background: #75c277" width="125">Books</td>
+                                        <td class="text-right font-medium" style="background: #7cc57e">{{ inventory_book_qty_nonactive | currency:'':0 }}</td>
+                                        <td class="text-right font-medium" style="background: #7cc57e">{{ inventory_book_buying_nonactive | currency:'':0 }}</td>
+                                        <td class="text-right font-medium" style="background: #7cc57e">{{ inventory_book_selling_nonactive | currency:'':0 }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-left" style="background: #75c277" width="125">Accessory</td>
+                                        <td class="text-right font-medium" style="background: #7cc57e">{{ inventory_accessory_qty_nonactive | currency:'':0 }}</td>
+                                        <td class="text-right font-medium" style="background: #7cc57e">{{ inventory_accessory_buying_nonactive | currency:'':0 }}</td>
+                                        <td class="text-right font-medium" style="background: #7cc57e">{{ inventory_accessory_selling_nonactive | currency:'':0 }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-left" style="background: #5cb75f" width="125">Total</td>
+                                        <td class="text-right font-medium" style="background: #75c277">{{ inventory_book_qty_nonactive + inventory_accessory_qty_nonactive | currency:'':0 }}</td>
+                                        <td class="text-right font-medium" style="background: #75c277">{{ inventory_book_buying_nonactive + inventory_accessory_buying_nonactive | currency:'':0 }}</td>
+                                        <td class="text-right font-medium" style="background: #75c277">{{ inventory_book_selling_nonactive + inventory_accessory_selling_nonactive | currency:'':0 }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="large-6 cell margin-top-1">
+                <div class="vs-box-page-content z-depth-low padding-1 text-center">
+                    <h5 class="font-medium margin-bottom-1 margin-top-1">Graphic Incomes {{ now_year }}</h5>
+                    <div class="vs-box-loading">
+                        <div class="vs-loading" ng-show="loading">
+                            <div class="showbox">
+                                <div class="loader">
+                                    <svg class="circular" viewBox="25 25 50 50">
+                                        <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="3" stroke-miterlimit="10"/>
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+                        <canvas class="chart chart-line" chart-data="tr_payments_data" chart-labels="tr_payments_labels" chart-series="tr_payments_series" chart-click="onClick" chart-options="options" height="121"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,93 @@
+<div class="vs-page-report">
+    <div class="vs-page-body">
+        <div class="grid-x">
+            <div class="large-12 cell align-self-middle">
+                <div class="vs-box-page-content z-depth-low">
+                    <div class="vs-box-page-header">
+                        <div class="grid-x">
+                            <div class="small-12 cell align-self-middle">
+                                <div class="vs-page-title middle-left">
+                                    <img src="public/apps/img/icon/graph.png" class="mdi-right">
+                                    <span class="vs-page-title font-bold">Inventory Stock Report</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="grid-x grid-padding-x">
+                        <div class="large-12 cell">
+                            <div class="vs-box-page-body">
+                                <div class="vs-loading" ng-show="loading">
+                                    <div class="showbox">
+                                        <div class="loader">
+                                            <svg class="circular" viewBox="25 25 50 50">
+                                                <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="3" stroke-miterlimit="10"/>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="grid-x grid-padding-x align-center">
+                                    <div class="small-6 cell margin-bottom-8px">
+                                        <div class="grid-x grid-padding-x">
+                                            <div class="small-12 cell font-bold text-center align-self-middle">
+                                                <button class="button vs-flat-button btn-success margin-top-12px margin-right-8px" ng-click="exportExcel(this, report)">Export to Excel</button>
+                                                <button class="button vs-flat-button btn-secondary margin-top-12px" ng-click="filterData(this, report)">Show</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="small-12 cell">
+                                        <table class="vs-table show-for-large margin-bottom-0">
+                                            <thead>
+                                                <tr class="sticky-row">
+                                                    <th width="56" class="text-center" ng-click="sortData('no')">
+                                                        <a href="javascript:;">No.<div ng-class="getSortClass('no')"></div></a>
+                                                    </th>
+                                                    <th class="text-center" ng-click="sortData('item_name')">
+                                                        <a href="javascript:;">Item Name <div ng-class="getSortClass('item_name')"></div></a>
+                                                    </th>
+                                                    <th width="100" class="text-center" ng-click="sortData('category')">
+                                                        <a href="javascript:;">Category <div ng-class="getSortClass('category')"></div></a>
+                                                    </th>
+                                                    <th width="100" class="text-center" ng-click="sortData('qty')">
+                                                        <a href="javascript:;">Qty <div ng-class="getSortClass('qty')"></div></a>
+                                                    </th>
+                                                    <th width="175" class="text-center" ng-click="sortData('price_buy')">
+                                                        <a href="javascript:;">Buying Price <div ng-class="getSortClass('price_buy')"></div></a>
+                                                    </th>
+                                                    <th width="175" class="text-center" ng-click="sortData('price_sell')">
+                                                        <a href="javascript:;">Selling Price <div ng-class="getSortClass('price_sell')"></div></a>
+                                                    </th>
+                                                    <th width="175" class="text-center">Buying Price Total</th>
+                                                    <th width="175" class="text-center">Selling Price Total</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr ng-repeat="rep_items in data | orderBy:sortColumn:reverseSort">
+                                                    <td>{{ $index + 1 }}</td>
+                                                    <td class="text-uppercase">{{ rep_items.name }}</td>
+                                                    <td class="text-capitalize">{{ rep_items.category }}</td>
+                                                    <td class="text-right">{{ rep_items.qty | currency:'':0 }}</td>
+                                                    <td class="text-right">{{ rep_items.price_buy | currency:'':0 }}</td>
+                                                    <td class="text-right">{{ rep_items.price_sell | currency:'':0 }}</td>
+                                                    <td class="text-right">{{ rep_items.price_buy * rep_items.qty | currency:'':0 }}</td>
+                                                    <td class="text-right">{{ rep_items.price_sell * rep_items.qty| currency:'':0 }}</td>
+                                                </tr>
+                                                <tr ng-show="data.length > 0">
+                                                    <td colspan="6" class="text-right">Total</td>
+                                                    <td class="text-right font-bold">{{ total_price_buy | currency:'':0 }}</td>
+                                                    <td class="text-right font-bold">{{ total_price_sell | currency:'':0 }}</td>
+                                                </tr>
+                                                <tr ng-show="data.length < 1">
+                                                    <td class="text-center" colspan="9">Data is empty</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,339 @@
+<div class="vs-page-transaction" style="position:relative">
+    <div class="vs-page-body">
+        <!-- <form name="transactionSalesForm" ng-submit="createData(transactionSalesForm.$valid)" id="transactionSalesForm"> -->
+            <div class="grid-x">
+                <div class="large-12 cell align-self-middle">
+                    <div class="vs-box-page-content z-depth-low">
+                        <div class="vs-box-page-header">
+                            <div class="grid-x">
+                                <div class="small-12 medium-6 large-3 cell align-self-middle">
+                                    <div class="vs-page-title middle-left">
+                                        <img src="public/apps/img/icon/cashier.png" class="mdi-right">
+                                        <span class="vs-page-title font-bold">Payments</span>
+                                    </div>
+                                </div>
+                                <div class="small-12 medium-6 large-9 cell align-self-right text-right">
+                                    {{ todayDate | date : "dd MMM y" }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="grid-x">
+                            <div class="large-9 cell padding-right-0">
+                                <div class="vs-box-page-body">
+                                    <div class="vs-loading" ng-show="loading">
+                                        <div class="showbox">
+                                            <div class="loader">
+                                                <svg class="circular" viewBox="25 25 50 50">
+                                                    <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="3" stroke-miterlimit="10"/>
+                                                </svg>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="grid-x grid-padding-x">
+                                        <div class="small-6 cell">
+                                            <autocompstudent placeholder="Search student by name or code..." selection="selection" source="searchStudent" class="margin-bottom-8px">
+                                        </div>
+                                        <div class="small-3 cell">
+                                            <input type="text" placeholder="Entry invoice number..." class="margin-bottom-8px" ng-model="tr_payments.invoice">
+                                        </div>
+                                        <div class="small-3 cell">
+                                            <div class="input-group">
+                                                <span class="input-group-label"><i class="mdi mdi-calendar"></i></span>
+                                                <input type="text" ui-date="dateOptions" name="dateJoin" ng-model="tr_payments.date" placeholder="01-01-2019" autocomplete="off" id="inp-joindate" class="margin-bottom-8px">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="grid-x grid-padding-x">
+                                        <div class="small-3 cell padding-right-0">
+                                            <div class="vs-info-supplier middle-left" style="background: #3f51b5; color: white;padding-left: 8px; padding-right: 8px;">
+                                                <i class="mdi mdi-matrix"></i>&nbsp;&nbsp;
+                                                <span ng-show="loadingSupp"><i class="mdi mdi-18px mdi-spin mdi-loading"></i></span>
+                                                <span ng-hide="loadingSupp" class="text-uppercase">{{ student.code }}</span>
+                                            </div>
+                                            <input type="hidden" name="" ng-value="supplier.name">
+                                            <input type="hidden" name="" ng-value="supplier.id">
+                                        </div>
+                                        <div class="small-6 cell padding-left-0 padding-right-0">
+                                            <div class="vs-info-supplier middle-left" style="background: #e4c05c; color: white;padding-left: 8px; padding-right: 8px;">
+                                                <i class="mdi mdi-clipboard-account"></i>&nbsp;&nbsp;
+                                                <span ng-show="loadingSupp"><i class="mdi mdi-18px mdi-spin mdi-loading"></i></span>
+                                                <span ng-hide="loadingSupp" class="text-uppercase font-medium">{{ student.name }}</span>
+                                            </div>
+                                        </div>
+                                        <div class="small-3 cell padding-left-0">
+                                            <div class="vs-info-supplier middle-left" style="background: #e57e25; color: white;padding-left: 8px; padding-right: 8px;">
+                                                <i class="mdi mdi-cash-multiple"></i>&nbsp;&nbsp;
+                                                <span ng-show="loadingSupp"><i class="mdi mdi-18px mdi-spin mdi-loading"></i></span>
+                                                <span ng-hide="loadingSupp" class="text-right" style="width: 100%">{{ student.deposit | currency:'':0 }}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="grid-x grid-padding-x">
+                                        <div class="small-12 cell">
+                                            <hr class="margin-bottom-12px margin-top-12px">
+                                        </div>
+                                        <div class="small-3 cell">
+                                            <label for="" class="font-bold">Tuition Payments</label>
+                                        </div>
+                                        <div class="small-9 cell">
+                                            <autocomptuition placeholder="Search tuition by name..." selection="selection" source="searchTuition" class="margin-bottom-12px">
+                                        </div>
+                                        <div class="small-12 cell">
+                                            <div style="min-height: 150px; max-height: 100%">
+                                                <table class="vs-table show-for-large">
+                                                    <thead>
+                                                        <tr>
+                                                            <th width="48">&nbsp;</th>
+                                                            <th class="text-center">Tuition Month</th>
+                                                            <th width="150" class="text-center">Price</th>
+                                                            <th width="100" class="text-center">Disc (%)</th>
+                                                            <th width="150" class="text-center">Subtotal</th>
+                                                            <th width="50" class="text-center"></th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody id="data-cart-sales">
+                                                        <tr ng-repeat="tuition in cart_tuition">
+                                                            <td>{{ ($index + 1) }}.</td>
+                                                            <td>
+                                                                <div class="font-bold">
+                                                                    <div class="text-uppercase">{{ tuition.name }}</div>
+                                                                    <input type="hidden" ng-model="tuition.id">
+                                                                    <input type="hidden" ng-model="tuition.name">
+                                                                </div>
+                                                            </td>
+                                                            <td class="text-right">
+                                                                <input type="text" class="text-right margin-bottom-0 inp-transparent" id="tuition-price-{{ $index }}" disabled ng-model="tuition.price" ui-number-mask="0">
+                                                            </td>
+                                                            <td>
+                                                                <input type="text" class="text-right margin-bottom-0" ng-model="tuition.discount" ng-keyup="calcDiscTuition(this)" ui-percentage-mask="1" autocomplete="off" id="tuition-disc-{{ $index }}">
+                                                            </td>
+                                                            <td class="text-right">
+                                                                <input type="text" class="text-right inp-transparent" disabled ng-model="tuition.subtotal" ui-number-mask="0">
+                                                            </td>
+                                                            <td class="text-center box-delete">
+                                                                <button class="button vs-flat-button alert btn-small btn-square margin-bottom-0 btn-delete btn-icon" ng-click="cartRemoveTuition(this)" id="modal-confirm-delete-tr-sales"><i class="mdi mdi-delete mdi-14px"></i></button>
+                                                            </td>
+                                                        </tr>
+                                                        <tr ng-show="cart_tuition.length < 1">
+                                                            <td class="text-center" colspan="6">Tuition cart is empty.</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <div class="small-12 cell">
+                                            <hr class="margin-top-0 margin-bottom-12px">
+                                        </div>
+                                    </div>
+                                    <div class="grid-x grid-padding-x">
+                                        <div class="small-3 cell">
+                                            <label for="" class="font-bold">Inventory Payments</label>
+                                        </div>
+                                        <div class="small-6 cell">
+                                            <autocompitem placeholder="Search inventory by name..." selection="selection" source="searchItem" class="margin-bottom-12px">
+                                        </div>
+                                        <div class="small-3 cell">
+                                            <div class="input-group">
+                                                <span class="input-group-label padding-left-0 padding-right-0" style="border: 0; background: white;">
+                                                    <div class="vs-box-checkbox">
+                                                        <div class="checkbox checkbox-success">
+                                                            <input id="check-starter-kids" class="styled" type="checkbox" ng-click="addStarterKids(this, add_starter_kids); $event.stopPropagation();" ng-checked="add_starter_kids">
+                                                            <label for="check-starter-kids" class="check-ppn"></label>
+                                                        </div>
+                                                    </div>
+                                                </span>
+                                                <label for="check-starter-kids" class="font-bold middle-center">Starter Kits</label>
+                                            </div>
+                                        </div>
+                                        <div class="small-12 cell">
+                                            <div style="min-height: 223px; max-height: 100%">
+                                                <table class="vs-table show-for-large">
+                                                    <thead>
+                                                        <tr>
+                                                            <th width="48">&nbsp;</th>
+                                                            <th class="text-center">Item Name</th>
+                                                            <th width="100" class="text-center">Quantity</th>
+                                                            <th width="150" class="text-center">Price</th>
+                                                            <th width="100" class="text-center">Disc (%)</th>
+                                                            <th width="150" class="text-center">Subtotal</th>
+                                                            <th width="50" class="text-center"></th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody id="data-cart-sales">
+                                                        <tr ng-repeat="item in cart_item">
+                                                            <td>{{ ($index + 1) }}.</td>
+                                                            <td>
+                                                                <div class="font-bold">
+                                                                    <div class="text-uppercase">{{ item.name }}</div>
+                                                                </div>
+                                                            </td>
+                                                            <td class="text-right">
+                                                                <input type="text" class="text-right margin-bottom-0" id="item-qty-{{ $index }}" ng-model="item.qty" ui-number-mask="0" ng-keyup="calcQty(this)">
+                                                            </td>
+                                                            <td class="text-right">
+                                                                <input type="text" class="text-right margin-bottom-0 inp-transparent" id="item-price-{{ $index }}" disabled ng-model="item.price" ui-number-mask="0">
+                                                            </td>
+                                                            <td>
+                                                                <input type="text" class="text-right margin-bottom-0" ng-model="item.discount" ng-keyup="calcDiscItem(this)" ui-percentage-mask="1" autocomplete="off" id="item-disc-{{ $index }}">
+                                                            </td>
+                                                            <td class="text-right">
+                                                                <input type="text" class="text-right inp-transparent" disabled ng-model="item.subtotal" ui-number-mask="0">
+                                                            </td>
+                                                            <td class="text-center box-delete">
+                                                                <button class="button vs-flat-button alert btn-small btn-square margin-bottom-0 btn-delete btn-icon" ng-click="cartRemoveItem(this)" id="modal-confirm-delete-tr-sales" ng-disabled="item.starter_kids=='A'"><i class="mdi mdi-delete mdi-14px"></i></button>
+                                                            </td>
+                                                        </tr>
+                                                        <tr ng-show="cart_item.length < 1">
+                                                            <td class="text-center" colspan="7">Item cart is empty.</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="grid-x grid-padding-x">
+                                        <div class="small-12 cell">
+                                            <hr class="margin-top-0 margin-bottom-8px">
+                                        </div>
+                                        <div class="small-3 cell">
+                                            <label for="" class="font-bold">Deposit Books</label>
+                                        </div>
+                                        <div class="small-4 cell">
+                                            <label for="" class="font-bold">Value Deposit</label>
+                                            <input type="text" class="text-right" ng-model="tr_payments.deposit_total" ui-number-mask="0" ng-keyup="calcDepositTotal(elm)">
+                                        </div>
+                                        <div class="small-1 cell padding-left-0 padding-right-0">
+                                            <label for="" class="font-bold">Disc (%)</label>
+                                            <input type="text" class="text-right" ng-model="tr_payments.deposit_discount" ui-percentage-mask="1" ng-keyup="calcDepositDisc(elm)">
+                                        </div>
+                                        <div class="small-4 cell">
+                                            <label for="" class="font-bold">Subtotal</label>
+                                            <input type="text" class="text-right" ng-model="tr_payments.deposit_subtotal" ui-number-mask="0" disabled>
+                                        </div>
+                                    </div>
+                                    <div class="grid-x grid-padding-x">
+                                        <div class="small-12 cell">
+                                            <hr class="margin-top-0 margin-bottom-8px">
+                                        </div>
+                                    </div>
+                                    <div class="grid-x grid-padding-x">
+                                        <div class="small-3 cell">
+                                            <label for="" class="font-bold">Note</label>
+                                        </div>
+                                        <div class="small-9 cell">
+                                            <textarea name="name" rows="3" ng-model="tr_payments.note"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="large-3 cell padding-left-0">
+                                <div class="box-payment vs-bg-smoke">
+                                    <div class="grid-x">
+                                        <div class="small-12 cell">
+                                            <hr class="margin-top-0 margin-bottom-8px">
+                                            <label for="" class="font-bold">Price Total</label>
+                                            <hr class="margin-top-8px margin-bottom-12px">
+                                        </div>
+                                        <div class="small-12 cell">
+                                            <div class="grid-x">
+                                                <div class="small-4 cell padding-right-1">
+                                                    <label for="" class="text-left font-bold">Subtotal</label>
+                                                </div>
+                                                <div class="small-8 cell">
+                                                    <input type="text" id="middle-label" class="text-right" disabled ng-model="tr_payments.total_price" ng-value="tr_payments.total_price | currency:'':0">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="small-12 cell">
+                                            <div class="grid-x">
+                                                <div class="small-4 cell padding-right-1">
+                                                    <label for="" class="text-left font-bold">Discount</label>
+                                                </div>
+                                                <div class="small-8 cell">
+                                                    <input type="text" class="text-right" disabled ng-model="tr_payments.discount" ui-number-mask="0" id="inp-disc-tunai" autocomplete="off">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="small-12 cell">
+                                            <div class="grid-x">
+                                                <div class="small-4 cell padding-right-1">
+                                                    <label for="" class="text-left font-bold">Voucher</label>
+                                                </div>
+                                                <div class="small-8 cell">
+                                                    <select ng-model="tr_payments.voucher" ng-options="v.name for v in vouchers" ng-change="selectVoucher(elm, tr_payments.voucher)"></select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="small-12 cell">
+                                            <label for="" class="font-bold">Grand Total</label>
+                                            <h4 class="font-bold text-right margin-bottom-0">{{ tr_payments.grand_total | currency:'':0 }}</h4>
+                                            <input type="hidden" class="text-right font-bold" disabled ng-model="tr_payments.grand_total">
+                                        </div>
+                                        <div class="small-12 cell">
+                                            <hr class="margin-top-8px margin-bottom-8px">
+                                            <label for="" class="font-bold">Payments Total</label>
+                                            <hr class="margin-top-8px margin-bottom-12px">
+                                        </div>
+                                        <div class="small-12 cell">
+                                            <div class="grid-x">
+                                                <div class="small-4 cell padding-right-1">
+                                                    <label for="" class="text-left font-bold">Cash</label>
+                                                </div>
+                                                <div class="small-8 cell">
+                                                    <input type="text" class="text-right" ng-model="tr_payments.cash" ng-keyup="calcTotalMethod(this)" ui-number-mask="0" id="inp-balance" autocomplete="off">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="small-12 cell">
+                                            <div class="grid-x">
+                                                <div class="small-4 cell padding-right-1">
+                                                    <label for="" class="text-left font-bold">Debit</label>
+                                                </div>
+                                                <div class="small-8 cell">
+                                                    <input type="text" class="text-right" ng-model="tr_payments.debit" ng-keyup="calcTotalMethod(this)" ui-number-mask="0" id="inp-balance" autocomplete="off">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="small-12 cell">
+                                            <div class="grid-x">
+                                                <div class="small-4 cell padding-right-1">
+                                                    <label for="" class="text-left font-bold">Transfer</label>
+                                                </div>
+                                                <div class="small-8 cell">
+                                                    <input type="text" class="text-right" ng-model="tr_payments.transfer" ng-keyup="calcTotalMethod(this)" ui-number-mask="0" id="inp-balance" autocomplete="off">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="small-12 cell">
+                                            <label for="" class="font-bold">Total</label>
+                                            <h4 class="font-bold text-right margin-bottom-0">{{ tr_payments.total_method | currency:'':0 }}</h4>
+                                            <input type="hidden" class="text-right font-bold" disabled ng-model="tr_payments.total_method">
+                                        </div>
+                                        <div class="small-12 cell text-right">
+                                            <hr class="margin-bottom-12px" style="margin-top: 4px">
+                                        </div>
+                                        <div class="small-12 cell">
+                                            <label for="" class="font-bold">Balance</label>
+                                            <h4 class="font-bold text-right margin-bottom-0">{{ tr_payments.balance | currency:'':0 }}</h4>
+                                            <input type="hidden" class="text-right" ng-model="tr_payments.balance">
+                                        </div>
+                                        <div class="small-12 cell text-center">
+                                            <hr style="margin: 0 0 16px">
+                                            <div class="callout" style="background: #e5252561; border-radius: 4px">
+                                                <p><span class="font-bold">Note!</span> Balance total must be <span class="font-bold"><span>0</span></p>
+                                            </div>
+                                        </div>
+                                        <div class="small-12 cell text-right">
+                                            <hr style="margin: 0 0 16px">
+                                            <button class="button vs-flat-button btn-success margin-bottom-0" id="btn-save" ng-disabled="tr_payments.total_method < tr_payments.grand_total || tr_payments.total_price < 1 || tr_payments.total_method > tr_payments.grand_total" ng-click="createData()">Simpan</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <!-- </form> -->
+    </div>
+</div>

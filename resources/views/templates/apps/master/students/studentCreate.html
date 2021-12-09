@@ -1,0 +1,86 @@
+<div class="vs-page-student">
+    <div class="vs-page-body">
+        <!-- <form name="studentForm" ng-submit="createData(studentForm.$valid)" id="studentForm"> -->
+            <div class="grid-x">
+                <div class="large-12 cell align-self-middle">
+                    <div class="vs-box-page-content z-depth-low">
+                        <div class="vs-box-page-header">
+                            <div class="grid-x">
+                                <div class="small-12 cell align-self-middle">
+                                    <div class="vs-page-title middle-left">
+                                        <img src="public/apps/img/icon/create.png" class="mdi-right">
+                                        <span class="vs-page-title font-bold">Create Student</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="vs-box-page-body">
+                            <div class="vs-loading" ng-show="loading">
+                                <div class="showbox">
+                                    <div class="loader">
+                                        <svg class="circular" viewBox="25 25 50 50">
+                                            <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="3" stroke-miterlimit="10"/>
+                                        </svg>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="grid-x">
+                                <div class="large-12 cell">
+                                    <div class="grid-x grid-padding-x">
+                                        <div class="small-12 cell">
+                                            <label for="">Student Code</label>
+                                            <input type="text" placeholder="Entry student code..." ng-model="student.code" id="student-code" autocomplete="off">
+                                        </div>
+                                        <div class="small-12 cell">
+                                            <label for="">Student Name</label>
+                                            <input type="text" placeholder="Entry student name..." ng-model="student.name" id="student-name" autocomplete="off">
+                                        </div>
+                                        <div class="small-12 cell">
+                                            <label for="">Deposit</label>
+                                            <input type="text" placeholder="Entry student name..." ng-model="student.deposit" id="student-deposit" class="text-right" ui-number-mask="0" disabled>
+                                        </div>
+                                        <div class="small-12 cell">
+                                            <label for="">Join Date</label>
+                                            <div class="input-group">
+                                                <span class="input-group-label"><i class="mdi mdi-calendar"></i></span>
+                                                <input type="text" ui-date="dateReportOptions" name="dateJoin" ng-model="student.join_date" placeholder="01-01-2019" autocomplete="off" id="inp-joindate">
+                                            </div>
+                                        </div>
+                                        <div class="small-12 cell">
+                                            <hr>
+                                            <label for="">Status</label>
+                                            <div class="vs-box-radio">
+                                                <div class="grid-x">
+                                                    <div class="small-6 medium-3 large-4 cell middle-left">
+                                                        <label class="radio">
+                                                            <input type="radio" name="status" ng-model="status" value="A" hidden ng-checked="true">
+                                                            <span class="outer"><span class="inner"></span></span>&nbsp;&nbsp;Active
+                                                        </label>
+                                                    </div>
+                                                    <div class="small-6 medium-3 large-4 cell middle-left">
+                                                        <label class="radio">
+                                                            <input type="radio" name="status" ng-model="status" value="N" hidden>
+                                                            <span class="outer"><span class="inner"></span></span>&nbsp;&nbsp;Non Active
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="vs-box-page-footer">
+                            <div class="grid-x">
+                                <div class="small-12 cell text-right">
+                                    <button ui-sref="student-list" class="button vs-flat-button btn-smoke margin-bottom-0 margin-right-8px">Kembali</button>
+                                    <button ng-click="createData()" class="button vs-flat-button btn-success margin-bottom-0" ng-disabled="student.name == null || student.name == ''">Simpan</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <!-- </form> -->
+    </div>
+</div>

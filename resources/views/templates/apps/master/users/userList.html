@@ -1,0 +1,98 @@
+<div class="vs-page-user">
+    <div class="vs-page-body">
+        <div class="grid-x">
+            <div class="large-12 cell align-self-middle">
+                <div class="vs-box-page-content z-depth-low">
+                    <div class="vs-box-page-header">
+                        <div class="grid-x">
+                            <div class="small-10 cell align-self-middle">
+                                <div class="vs-page-title middle-left">
+                                    <img src="public/apps/img/icon/list.png" class="mdi-right">
+                                    <span class="vs-page-title font-bold">User List</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="grid-x">
+                        <div class="large-12 cell">
+                            <div class="vs-box-page-body">
+                                <div class="vs-loading" ng-show="loading">
+                                    <div class="showbox">
+                                        <div class="loader">
+                                            <svg class="circular" viewBox="25 25 50 50">
+                                                <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="3" stroke-miterlimit="10"/>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="grid-x grid-padding-x">
+                                    <div class="small-12 cell">
+                                        <div class="grid-x grid-padding-x">
+                                            <div class="small-2 cell">
+                                                <button ui-sref="user-create" class="button float-right vs-flat-button btn-small expanded btn-secondary middle-center margin-bottom-0" ng-disabled="user_id == 2 || user_id == 3">Add User</button>
+                                            </div>
+                                            <div class="small-10 cell">
+                                                <input type="text" placeholder="Search user by name..." class="margin-bottom-12px" ng-change="searchData()" ng-model="searchText" id="inp-search">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="small-12 cell">
+                                        <table class="vs-table show-for-large margin-bottom-0">
+                                            <thead>
+                                                <tr>
+                                                    <th width="56" class="text-center">No.</th>
+                                                    <th class="text-center" width="125">Join Date</th>
+                                                    <th class="text-center" width="125">Code</th>
+                                                    <th class="text-center">Name</th>
+                                                    <th class="text-center" width="150">Username</th>
+                                                    <th class="text-center" width="150">Position</th>
+                                                    <th class="text-center" width="100">Status</th>
+                                                    <th width="50" colspan="1">&nbsp;</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr dir-paginate="user in data | itemsPerPage:25" total-items="totalItems" current-page="pagination.current">
+                                                    <td>{{ ($index + 1) + (pagination.current - 1) * 25}}.</td>
+                                                    <td>{{ user.join_date | date : "dd MMM y" }}</td>
+                                                    <td>{{ user.code }}</td>
+                                                    <td class="font-bold text-uppercase">{{ user.name }}</td>
+                                                    <td>{{ user.email }}</td>
+                                                    <td>
+                                                        <span ng-if="user.permission == 99">Creator</span>
+                                                        <span ng-if="user.permission == 1">Owner</span>
+                                                        <span ng-if="user.permission == 2">Customer Service</span>
+                                                        <span ng-if="user.permission == 3">Teacher</span>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <label class="label success text-white" ng-if="user.status == 'A'">Active</label>
+                                                        <label class="label alert text-white" ng-if="user.status == 'N'">Inactive</label>
+                                                    </td>
+                                                    <td class="text-center" width="25">
+                                                        <button ui-sref="user-edit({id: user.id})" class="button vs-flat-button primary btn-small btn-square margin-bottom-0 btn-edit btn-icon" ng-keypress="pressEdit(this, $event, item.id)" ng-disabled="user_id == 2 || user_id == 3"><i class="mdi mdi-pencil mdi-14px"></i></button>
+                                                    </td>
+                                                </tr>
+                                                <tr ng-show="data.length < 1">
+                                                    <td class="text-center" colspan="8">Maaf, data masih kosong</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="vs-box-page-footer">
+                                <div class="grid-x" ng-hide="loading">
+                                    <div class="small-6 cell align-self-middle">
+                                        <span>Total: {{ totalItems }}</span>
+                                    </div>
+                                    <div class="small-6 cell align-self-middle">
+                                        <dir-pagination-controls class="pull-right" on-page-change="pageChanged(newPageNumber)" template-url="../resources/views/templates/apps/master/users/userPagination.html"></dir-pagination-controls>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

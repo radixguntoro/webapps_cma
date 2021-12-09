@@ -1,0 +1,86 @@
+<div class="vs-page-stamp">
+    <div class="vs-page-body">
+        <!-- <form name="itemForm" ng-submit="createData(itemForm.$valid)" id="itemForm"> -->
+            <div class="grid-x">
+                <div class="large-12 cell align-self-middle">
+                    <div class="vs-box-page-content z-depth-low">
+                        <div class="vs-box-page-header">
+                            <div class="grid-x">
+                                <div class="small-12 cell align-self-middle">
+                                    <div class="vs-page-title middle-left">
+                                        <img src="public/apps/img/icon/create.png" class="mdi-right">
+                                        <span class="vs-page-title font-bold">Create Reward</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="grid-x">
+                            <div class="large-12 cell">
+                                <div class="vs-box-page-body">
+                                    <div class="vs-loading" ng-show="loading">
+                                        <div class="showbox">
+                                            <div class="loader">
+                                                <svg class="circular" viewBox="25 25 50 50">
+                                                    <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="3" stroke-miterlimit="10"/>
+                                                </svg>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="grid-x grid-padding-x">
+                                        <div class="large-12 cell">
+                                            <div class="grid-x grid-padding-x">
+                                                <div class="small-12 cell">
+                                                    <label for="">Item Name</label>
+                                                    <input type="text" placeholder="Nama barang..." ng-model="stamp.name" required>
+                                                </div>
+                                                <div class="small-12 cell">
+                                                    <label for="">Stamp</label>
+                                                    <input type="text" placeholder="0" class="text-right" ng-model="stamp.stamp" ui-number-mask="0" ng-keyup="validQtyInBox(this, event)">
+                                                </div>
+                                                <div class="small-12 cell">
+                                                    <label for="">Quantity</label>
+                                                    <input type="text" placeholder="0" class="text-right" ng-model="stamp.qty" ui-number-mask="0" ng-keyup="validQtyInBox(this, event)">
+                                                </div>
+                                                <div class="small-12 cell">
+                                                    <label for="">Buying Price</label>
+                                                    <input type="text" placeholder="0" class="text-right" ng-model="stamp.price" ng-value="stamp.price | currency:'':0" ui-number-mask="0">
+                                                </div>
+                                                <div class="small-12 cell">
+                                                    <label for="">Status</label>
+                                                    <div class="vs-box-radio">
+                                                        <div class="grid-x">
+                                                            <div class="small-4 cell middle-left">
+                                                                <label class="radio">
+                                                                    <input type="radio" name="status" ng-model="status" value="A" hidden ng-checked="true">
+                                                                    <span class="outer"><span class="inner"></span></span>&nbsp;&nbsp;Active
+                                                                </label>
+                                                            </div>
+                                                            <div class="small-4 cell middle-left">
+                                                                <label class="radio">
+                                                                    <input type="radio" name="status" ng-model="status" value="N" hidden>
+                                                                    <span class="outer"><span class="inner"></span></span>&nbsp;&nbsp;Non Active
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="vs-box-page-footer">
+                            <div class="grid-x">
+                                <div class="small-12 cell text-right">
+                                    <button ui-sref="stamp-list" class="button vs-flat-button btn-smoke margin-bottom-0 margin-right-8px">Kembali</button>
+                                    <button ng-click="createData()" class="button vs-flat-button btn-success margin-bottom-0" ng-disabled="stamp.name ==null || stamp.name == ''" id="btn-save">Simpan</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <!-- </form> -->
+    </div>
+</div>

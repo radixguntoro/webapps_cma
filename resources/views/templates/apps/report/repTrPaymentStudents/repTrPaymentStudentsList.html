@@ -1,0 +1,307 @@
+<div class="vs-page-report">
+    <div class="vs-page-body">
+        <div class="grid-x">
+            <div class="large-12 cell align-self-middle">
+                <div class="vs-box-page-content z-depth-low">
+                    <div class="vs-box-page-header">
+                        <div class="grid-x">
+                            <div class="small-12 cell align-self-middle">
+                                <div class="vs-page-title middle-left">
+                                    <img src="public/apps/img/icon/graph.png" class="mdi-right">
+                                    <span class="vs-page-title font-bold">Payment per Student Report</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="grid-x grid-padding-x">
+                        <div class="large-12 cell">
+                            <div class="vs-box-page-body">
+                                <div class="vs-loading" ng-show="loading">
+                                    <div class="showbox">
+                                        <div class="loader">
+                                            <svg class="circular" viewBox="25 25 50 50">
+                                                <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="3" stroke-miterlimit="10"/>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="grid-x grid-padding-x align-center">
+                                    <div class="small-6 cell margin-bottom-8px">
+                                        <div class="grid-x grid-padding-x">
+                                            <div class="small-6 cell">
+                                                <label for="">Start Date</label>
+                                                <div class="input-group">
+                                                    <span class="input-group-label"><i class="mdi mdi-calendar"></i></span>
+                                                    <input type="text" ui-date="dateReportOptions" name="dateReportStart" ng-model="report.datestart" placeholder="01-01-2018" autocomplete="off" id="inp-datestart">
+                                                </div>
+                                            </div>
+                                            <div class="small-6 cell">
+                                                <label for="">End Date</label>
+                                                <div class="input-group">
+                                                    <span class="input-group-label"><i class="mdi mdi-calendar"></i></span>
+                                                    <input type="text" ui-date="dateReportOptions" name="dateReportEnd" ng-model="report.dateend" placeholder="01-02-2018" autocomplete="off" id="inp-dateend">
+                                                </div>
+                                            </div>
+                                            <div class="small-12 cell align-self-middle">
+                                                <label for="">Student Name</label>
+                                                <autocomprepstudent placeholder="Search student by name or code..." selection="selection" source="searchStudent" class="margin-bottom-8px" ng-keyup="validStudent(this)">
+                                            </div>
+                                            <div class="small-12 cell font-bold text-right align-self-middle">
+                                                <button class="button vs-flat-button btn-success margin-top-12px margin-right-8px" ng-click="exportExcel(this, report)">Export to Excel</button>
+                                                <button class="button vs-flat-button btn-secondary margin-top-12px" ng-click="filterData(this, report)">Filter</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="small-12 cell">
+                                        <table class="vs-table show-for-large margin-bottom-0">
+                                            <thead>
+                                                <tr class="sticky-row">
+                                                    <th width="120" class="text-center" ng-click="sortData('date')">
+                                                        <a href="javascript:;">Date <div ng-class="getSortClass('date')"></div></a>
+                                                    </th>
+                                                    <th width="125" class="text-center" ng-click="sortData('invoice')">
+                                                        <a href="javascript:;">Invoice <div ng-class="getSortClass('invoice')"></div></a>
+                                                    </th>
+                                                    <th class="text-center" ng-click="sortData('student_name')">
+                                                        <a href="javascript:;">Student Name <div ng-class="getSortClass('student_name')"></div></a>
+                                                    </th>
+                                                    <th width="100" class="text-center" ng-click="sortData('student_id')">
+                                                        <a href="javascript:;">Student ID <div ng-class="getSortClass('student_id')"></div></a>
+                                                    </th>
+                                                    <th width="150" class="text-center">Cash</th>
+                                                    <th width="150" class="text-center">Debit</th>
+                                                    <th width="150" class="text-center">Transfer</th>
+                                                    <th width="150" class="text-center">Payment Total</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody ng-repeat="rep_tr_payments in data | orderBy:sortColumn:reverseSort">
+                                                <tr ng-click="showTrPaymentsDetail(rep_tr_payments)" ng-toggle="{{$index}}" ng-toggle-group="data" ng-toggle-closeable="true" class="vs-row-click">
+                                                    <td>
+                                                        {{ rep_tr_payments.date | date : "dd MMM y" }}
+                                                    </td>
+                                                    <td>{{ rep_tr_payments.invoice }}</td>
+                                                    <td class="text-capitalize">{{ rep_tr_payments.student_name }}</td>
+                                                    <td class="text-capitalize">{{ rep_tr_payments.student_id }}</td>
+                                                    <td class="text-right">{{ rep_tr_payments.cash | currency:'':0 }}</td>
+                                                    <td class="text-right">{{ rep_tr_payments.debit | currency:'':0 }}</td>
+                                                    <td class="text-right">{{ rep_tr_payments.transfer | currency:'':0 }}</td>
+                                                    <td class="text-right">{{ rep_tr_payments.total | currency:'':0 }}</td>
+                                                </tr>
+                                                <tr ng-toggled="{{$index}}">
+                                                    <td colspan="8" class="vs-row-detail vs-box-sub-table" style="padding: 0 !important; background: white !important;">
+                                                        <div class="vs-loading" ng-show="loadingDetail">
+                                                            <div class="showbox">
+                                                                <div class="loader">
+                                                                    <svg class="circular" viewBox="25 25 50 50">
+                                                                        <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="3" stroke-miterlimit="10"/>
+                                                                    </svg>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="grid-x grid-padding-x">
+                                                            <div class="medium-12 cell">
+                                                                <div class="padding-top-1 padding-right-1 padding-left-1 padding-bottom-0">
+                                                                    <h5 class="font-bold">Detail Payment Transaction</h5>
+                                                                    <hr>
+                                                                </div>
+                                                            </div>
+                                                            <div class="medium-9 cell">
+                                                                <div class="padding-top-0 padding-right-0 padding-left-1 padding-bottom-1">
+                                                                    <div class="grid-x grid-padding-x">
+                                                                        <div class="small-12 cell margin-bottom-1" ng-show="tr_payment_item_detail.length > 0">
+                                                                            <table class="margin-bottom-0">
+                                                                                <thead>
+                                                                                    <tr>
+                                                                                        <th class="text-left vs-bg-primary text-white" colspan="7" style="border-color: #1c3f93">Item Details</th>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <th class="text-center" width="48">No.</th>
+                                                                                        <th class="text-center">Item Name</th>
+                                                                                        <th class="text-center" width="100">Quantity</th>
+                                                                                        <th class="text-center" width="130">Price Start</th>
+                                                                                        <th class="text-center" width="100">Discount (%)</th>
+                                                                                        <th class="text-center" width="130">Price End</th>
+                                                                                        <th class="text-center" width="130">Subtotal</th>
+                                                                                    </tr>
+                                                                                </thead>
+                                                                                <tbody>
+                                                                                    <tr ng-repeat="item_detail in tr_payment_item_detail">
+                                                                                        <td>{{ $index + 1 }}.</td>
+                                                                                        <td>
+                                                                                            <span class="text-uppercase font-bold">{{ item_detail.name }}</span>
+                                                                                        </td>
+                                                                                        <td class="text-right">{{ item_detail.qty }}</td>
+                                                                                        <td class="text-right">{{ item_detail.price_start | currency:'':0; }}</td>
+                                                                                        <td class="text-right">{{ item_detail.discount * 100 }}%</td>
+                                                                                        <td class="text-right">{{ item_detail.price_end | currency:'':0; }}</td>
+                                                                                        <td class="text-right">{{ item_detail.subtotal | currency:'':0; }}</td>
+                                                                                    </tr>
+                                                                                </tbody>
+                                                                            </table>
+                                                                        </div>
+                                                                        <div class="small-12 cell margin-bottom-1" ng-show="tr_payment_tuition_detail.length > 0">
+                                                                            <table class="margin-bottom-0">
+                                                                                <thead>
+                                                                                    <tr>
+                                                                                        <th class="text-left vs-bg-secondary text-white" colspan="5" style="border-color: #FF9800">Tuition Details</th>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <th class="text-center" width="48">No.</th>
+                                                                                        <th class="text-center">Tuition Name</th>
+                                                                                        <th class="text-center" width="130">Price</th>
+                                                                                        <th class="text-center" width="100">Discount (%)</th>
+                                                                                        <th class="text-center" width="130">Subtotal</th>
+                                                                                    </tr>
+                                                                                </thead>
+                                                                                <tbody>
+                                                                                    <tr ng-repeat="tuition_detail in tr_payment_tuition_detail">
+                                                                                        <td>{{ $index + 1 }}.</td>
+                                                                                        <td>
+                                                                                            <span class="text-uppercase font-bold">{{ tuition_detail.name }}</span>
+                                                                                        </td>
+                                                                                        <td class="text-right">{{ tuition_detail.price | currency:'':0; }}</td>
+                                                                                        <td class="text-right">{{ tuition_detail.discount * 100 }}%</td>
+                                                                                        <td class="text-right">{{ tuition_detail.subtotal | currency:'':0; }}</td>
+                                                                                    </tr>
+                                                                                </tbody>
+                                                                            </table>
+                                                                        </div>
+                                                                        <div class="small-12 cell margin-bottom-0" ng-show="tr_payment_deposit_detail.length > 0">
+                                                                            <table class="margin-bottom-0">
+                                                                                <thead>
+                                                                                    <tr>
+                                                                                        <th class="text-left vs-bg-success text-white" colspan="5" style="border-color: #4CAF50">Deposit Details</th>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <th class="text-center" width="48">No.</th>
+                                                                                        <th class="text-center">Last Deposit</th>
+                                                                                        <th class="text-center" width="130">Total</th>
+                                                                                        <th class="text-center" width="100">Discount (%)</th>
+                                                                                        <th class="text-center" width="130">Subtotal</th>
+                                                                                    </tr>
+                                                                                </thead>
+                                                                                <tbody>
+                                                                                    <tr ng-repeat="deposit_detail in tr_payment_deposit_detail">
+                                                                                        <td>{{ $index + 1 }}.</td>
+                                                                                        <td class="text-right">{{ deposit_detail.last_deposit | currency:'':0; }}</td>
+                                                                                        <td class="text-right">{{ deposit_detail.total | currency:'':0; }}</td>
+                                                                                        <td class="text-right">{{ deposit_detail.discount * 100 }}%</td>
+                                                                                        <td class="text-right">{{ deposit_detail.subtotal | currency:'':0; }}</td>
+                                                                                    </tr>
+                                                                                </tbody>
+                                                                            </table>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="medium-3 cell">
+                                                                <div class="padding-top-0 padding-right-1 padding-left-0 padding-bottom-1">
+                                                                    <div class="grid-x grid-padding-x">
+                                                                        <div class="small-12 cell margin-bottom-1 padding-left-0">
+                                                                            <table class="margin-bottom-1">
+                                                                                <thead>
+                                                                                    <tr>
+                                                                                        <th class="text-left" colspan="3">Price Total</th>
+                                                                                    </tr>
+                                                                                </thead>
+                                                                                <tbody>
+                                                                                    <tr>
+                                                                                        <td class="text-right font-bold" width="100">Subtotal</td>
+                                                                                        <td class="text-center" width="10">:</td>
+                                                                                        <td class="text-right">{{ rep_tr_payments.subtotal | currency:'':0; }}</td>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <td class="text-right font-bold">Discount</td>
+                                                                                        <td class="text-center" width="10">:</td>
+                                                                                        <td class="text-right">{{ rep_tr_payments.discount | currency:'':0; }}</td>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <td class="text-right font-bold">Grand Total</td>
+                                                                                        <td class="text-center" width="10">:</td>
+                                                                                        <td class="text-right">
+                                                                                            <h4 class="font-bold">{{ rep_tr_payments.grand_total | currency:'':0; }}</h4>
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                </tbody>
+                                                                            </table>
+                                                                            <table class="margin-bottom-1">
+                                                                                <thead>
+                                                                                    <tr>
+                                                                                        <th class="text-left" colspan="3">Payment Total</th>
+                                                                                    </tr>
+                                                                                </thead>
+                                                                                <tbody>
+                                                                                    <tr>
+                                                                                        <td class="text-right font-bold" width="100">Cash</td>
+                                                                                        <td class="text-center" width="10">:</td>
+                                                                                        <td class="text-right">{{ rep_tr_payments.cash | currency:'':0; }}</td>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <td class="text-right font-bold">Debit</td>
+                                                                                        <td class="text-center" width="10">:</td>
+                                                                                        <td class="text-right">{{ rep_tr_payments.debit | currency:'':0; }}</td>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <td class="text-right font-bold">Transfer</td>
+                                                                                        <td class="text-center" width="10">:</td>
+                                                                                        <td class="text-right">{{ rep_tr_payments.transfer | currency:'':0; }}</td>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <td class="text-right font-bold">Total</td>
+                                                                                        <td class="text-center" width="10">:</td>
+                                                                                        <td class="text-right">
+                                                                                            <h4 class="font-bold">{{ rep_tr_payments.total | currency:'':0; }}</h4>
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                </tbody>
+                                                                            </table>
+                                                                            <table class="margin-bottom-1">
+                                                                                <thead>
+                                                                                    <tr>
+                                                                                        <th class="text-left" colspan="3">Discount Voucher</th>
+                                                                                    </tr>
+                                                                                </thead>
+                                                                                <tbody>
+                                                                                    <tr>
+                                                                                        <td class="text-right">{{ rep_tr_payments.discount_voucher | currency:'':0; }}</td>
+                                                                                    </tr>
+                                                                                </tbody>
+                                                                            </table>
+                                                                            <table class="margin-bottom-0">
+                                                                                <thead>
+                                                                                    <tr>
+                                                                                        <th class="text-left" colspan="3">Balance</th>
+                                                                                    </tr>
+                                                                                </thead>
+                                                                                <tbody>
+                                                                                    <tr>
+                                                                                        <td class="text-right">
+                                                                                            <h4 class="font-bold">{{ rep_tr_payments.balance | currency:'':0; }}</h4>
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                </tbody>
+                                                                            </table>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                            <tbody ng-show="data.length < 1">
+                                                <tr>
+                                                    <td class="text-center" colspan="9">Data is empty</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

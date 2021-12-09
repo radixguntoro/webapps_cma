@@ -1,0 +1,60 @@
+"rajaongkir":
+{
+    "query":
+    {
+        "origin": "444",
+        "destination": "75",
+        "weight": 4000,
+        "courier": "jne"
+    },
+    "status":
+    {
+        "code": 200,
+        "description": "OK"
+    },
+    "origin_details":
+    {
+        "city_id": "444",
+        "province_id": "11",
+        "province": "Jawa Timur",
+        "type": "Kota",
+        "city_name": "Surabaya",
+        "postal_code": "60119"
+    },
+    "destination_details":
+    {
+        "city_id": "75",
+        "province_id": "11",
+        "province": "Jawa Timur",
+        "type": "Kota",
+        "city_name": "Blitar",
+        "postal_code": "66124"
+    },
+    "results": [
+    {
+        "code": "jne",
+        "name": "Jalur Nugraha Ekakurir (JNE)",
+        "costs": [
+        {
+            "service": "OKE",
+            "description": "Ongkos Kirim Ekonomis",
+            "cost": [
+            {
+                "value": 48000,
+                "etd": "4-6",
+                "note": ""
+            }]
+        },
+        {
+            "service": "REG",
+            "description": "Layanan Reguler",
+            "cost": [
+            {
+                "value": 52000,
+                "etd": "3-4",
+                "note": ""
+            }]
+        }]
+    }]
+}
+}

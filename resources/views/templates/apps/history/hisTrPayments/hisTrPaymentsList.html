@@ -1,0 +1,102 @@
+<div class="vs-page-history">
+    <div class="vs-page-body">
+        <div class="grid-x">
+            <div class="large-12 cell align-self-middle">
+                <div class="vs-box-page-content z-depth-low">
+                    <div class="vs-box-page-header">
+                        <div class="grid-x">
+                            <div class="small-12 cell align-self-middle">
+                                <div class="vs-page-title middle-left">
+                                    <img src="public/apps/img/icon/log.png" class="mdi-right">
+                                    <span class="vs-page-title font-bold">Payment History</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="grid-x">
+                        <div class="large-12 cell">
+                            <div class="vs-box-page-body">
+                                <div class="vs-loading" ng-show="loading">
+                                    <div class="showbox">
+                                        <div class="loader">
+                                            <svg class="circular" viewBox="25 25 50 50">
+                                                <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="3" stroke-miterlimit="10"/>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="grid-x grid-padding-x align-center">
+                                    <div class="small-6 cell margin-bottom-8px">
+                                        <div class="grid-x grid-padding-x">
+                                            <div class="small-6 cell">
+                                                <label for="">Start Date</label>
+                                                <div class="input-group">
+                                                    <span class="input-group-label"><i class="mdi mdi-calendar"></i></span>
+                                                    <input type="text" ui-date="dateReportOptions" name="dateReportStart" ng-model="report.datestart" placeholder="01-01-2018" autocomplete="off" id="inp-datestart">
+                                                </div>
+                                            </div>
+                                            <div class="small-6 cell">
+                                                <label for="">End Date</label>
+                                                <div class="input-group">
+                                                    <span class="input-group-label"><i class="mdi mdi-calendar"></i></span>
+                                                    <input type="text" ui-date="dateReportOptions" name="dateReportEnd" ng-model="report.dateend" placeholder="01-02-2018" autocomplete="off" id="inp-dateend">
+                                                </div>
+                                            </div>
+                                            <!-- <div class="small-12 cell align-self-middle">
+                                                <label for="">Student Name</label>
+                                                <autocomprepstudent placeholder="Search student by name or code..." selection="selection" source="searchStudent" class="margin-bottom-8px" ng-keyup="validStudent(this)">
+                                            </div> -->
+                                            <div class="small-12 cell font-bold text-right align-self-middle">
+                                                <button class="button vs-flat-button btn-secondary margin-top-12px" ng-click="filterData(this, report)">Filter</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="small-12 cell">
+                                        <table class="vs-table show-for-large margin-bottom-0">
+                                            <thead>
+                                                <tr>
+                                                    <th width="56" class="text-center">&nbsp;</th>
+                                                    <th width="160" class="text-center">Date Time</th>
+                                                    <th width="250" class="text-center">Name</th>
+                                                    <th class="text-center">Action</th>
+                                                    <th class="text-center" width="150">Invoice</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody dir-paginate="history_payment in data | itemsPerPage:25" total-items="totalItems" current-page="pagination.current">
+                                                <tr>
+                                                    <td>{{ ($index + 1) + (pagination.current - 1) * 25}}.</td>
+                                                    <td>
+                                                        {{ history_payment.date | date : "dd MMM y" }}
+                                                        {{ history_payment.time | date : "mediumTime" }}
+                                                    </td>
+                                                    <td class="text-capitalize">{{ history_payment.name }}</td>
+                                                    <td class="text-center">{{ history_payment.action }}</td>
+                                                    <td>{{ history_payment.invoice }}</td>
+                                                </tr>
+                                            </tbody>
+                                            <tbody ng-show="data.length < 1">
+                                                <tr>
+                                                    <td class="text-center" colspan="5">Data is Empty</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="vs-box-page-footer">
+                        <div class="grid-x" ng-hide="loading">
+                            <div class="small-6 cell align-self-middle">
+                                <span>Total: {{ totalItems }}</span>
+                            </div>
+                            <div class="small-6 cell align-self-middle">
+                                <dir-pagination-controls class="pull-right" on-page-change="pageChanged(newPageNumber)" template-url="../resources/views/templates/apps/history/hisTrPayments/hisTrPaymentsPagination.html"></dir-pagination-controls>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

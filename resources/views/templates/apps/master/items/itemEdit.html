@@ -1,0 +1,117 @@
+<div class="vs-page-item">
+    <div class="vs-page-body">
+        <!-- <form name="itemForm" ng-submit="updateData(itemForm.$valid)" id="itemForm"> -->
+            <div class="grid-x">
+                <div class="large-12 cell align-self-middle">
+                    <div class="vs-box-page-content z-depth-low">
+                        <div class="vs-box-page-header">
+                            <div class="grid-x">
+                                <div class="small-12 cell align-self-middle">
+                                    <div class="vs-page-title middle-left">
+                                        <img src="public/apps/img/icon/edit.png" class="mdi-right">
+                                        <span class="vs-page-title font-bold">Edit Item</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="grid-x">
+                            <div class="large-12 cell">
+                                <div class="vs-box-page-body">
+                                    <div class="vs-loading" ng-show="loading">
+                                        <div class="showbox">
+                                            <div class="loader">
+                                                <svg class="circular" viewBox="25 25 50 50">
+                                                    <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="3" stroke-miterlimit="10"/>
+                                                </svg>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="grid-x grid-padding-x">
+                                        <div class="large-6 cell">
+                                            <div class="grid-x grid-padding-x">
+                                                <div class="small-12 cell">
+                                                    <label for="">Item Name</label>
+                                                    <input type="text" placeholder="Nama barang..." ng-model="item.name" required>
+                                                </div>
+                                                <div class="small-12 cell">
+                                                    <label for="">Category</label>
+                                                    <select ng-model="category" ng-options="c.name for c in categories"></select>
+                                                </div>
+                                                <div class="small-12 cell">
+                                                    <label for="">Quantity</label>
+                                                    <input type="text" placeholder="0" class="text-right" ng-model="item.qty" ui-number-mask="0" ng-keyup="validQtyInBox(this, event)">
+                                                </div>
+                                                <div class="small-12 cell margin-bottom-8px">
+                                                    <label for="">Starter Kits</label>
+                                                    <div class="vs-box-radio">
+                                                        <div class="grid-x">
+                                                            <div class="small-6 cell middle-left">
+                                                                <label class="radio">
+                                                                    <input type="radio" name="starter_kids" ng-model="starter_kids" value="A" hidden ng-checked="true">
+                                                                    <span class="outer"><span class="inner"></span></span>&nbsp;&nbsp;Yes
+                                                                </label>
+                                                            </div>
+                                                            <div class="small-6 cell middle-left">
+                                                                <label class="radio">
+                                                                    <input type="radio" name="starter_kids" ng-model="starter_kids" value="N" hidden>
+                                                                    <span class="outer"><span class="inner"></span></span>&nbsp;&nbsp;No
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="small-12 cell" ng-show="starter_kids=='A'">
+                                                    <label for="">Starter Kits Price</label>
+                                                    <input type="text" placeholder="0" class="text-right" ng-model="item.price_starter_kids" ui-number-mask="0">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="large-6 cell">
+                                            <div class="grid-x grid-padding-x">
+                                                <div class="small-12 cell">
+                                                    <label for="">Buying Price</label>
+                                                    <input type="text" placeholder="0" class="text-right" ng-model="item.price_buy" ng-value="item.price_buy | currency:'':0" ui-number-mask="0">
+                                                </div>
+                                                <div class="small-12 cell">
+                                                    <label for="">Selling Price</label>
+                                                    <input type="text" placeholder="0" class="text-right" ng-model="item.price_sell" ng-value="item.price_sell | currency:'':0" ui-number-mask="0">
+                                                </div>
+                                                <div class="small-12 cell">
+                                                    <label for="">Status</label>
+                                                    <div class="vs-box-radio">
+                                                        <div class="grid-x">
+                                                            <div class="small-6 cell middle-left">
+                                                                <label class="radio">
+                                                                    <input type="radio" name="status" ng-model="status" value="A" hidden ng-checked="true">
+                                                                    <span class="outer"><span class="inner"></span></span>&nbsp;&nbsp;Active
+                                                                </label>
+                                                            </div>
+                                                            <div class="small-6 cell middle-left">
+                                                                <label class="radio">
+                                                                    <input type="radio" name="status" ng-model="status" value="N" hidden>
+                                                                    <span class="outer"><span class="inner"></span></span>&nbsp;&nbsp;Non Active
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="vs-box-page-footer">
+                            <div class="grid-x">
+                                <div class="small-12 cell text-right">
+                                    <button ui-sref="item-list" class="button vs-flat-button btn-smoke margin-bottom-0 margin-right-8px">Kembali</button>
+                                    <button ng-click="updateData()" class="button vs-flat-button btn-success margin-bottom-0" ng-disabled="item.name == null" id="btn-save">Simpan</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <!-- </form> -->
+    </div>
+</div>
